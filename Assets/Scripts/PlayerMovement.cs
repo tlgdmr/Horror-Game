@@ -5,11 +5,14 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] float movementSpeed = 10;
-    Rigidbody rb;
+
+    public CharacterController controller;
+
+    float gravity = -9.81f;
+    Vector3 velocity;
+    
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        //rb.constraints = RigidbodyConstraints.FreezePositionY;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
@@ -21,12 +24,18 @@ public class PlayerMovement : MonoBehaviour
    
     void Movement()
     {
-        rb.freezeRotation = true;
+       
         float xAxis = Input.GetAxis("Horizontal") * Time.deltaTime * movementSpeed;
         float zAxis = Input.GetAxis("Vertical") * Time.deltaTime * movementSpeed;
 
-        transform.Translate(xAxis, 0, zAxis);
-        rb.freezeRotation = false;
-        
+        Vector3 move = transform.right * xAxis + transform.forward * zAxis;
+
+        controller.Move(move);
+
+        velocity.y += gravity * Time.deltaTime;
+
+        controller.Move(velocity * Time.deltaTime);
+
+        //transform.Translate(xAxis, 0, zAxis);
     }
 }

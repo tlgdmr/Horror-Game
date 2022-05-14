@@ -25,6 +25,6 @@ public class CamerRotation : MonoBehaviour
         yRotation = Mathf.Clamp(yRotation, -20f, 20f);
 
         transform.localRotation = Quaternion.Euler(yRotation, 0, 0);
-        Player.transform.Rotate(Vector3.up * mouseX);
+        Player.transform.Rotate(Vector3.up * mouseX );
     }
 }
