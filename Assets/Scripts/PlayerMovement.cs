@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] float movementSpeed = 10;
+   
+    
+    float runningSpeed = 25;
+    float walkingSpeed = 10;
+    float movementSpeed;
 
     public CharacterController controller;
 
@@ -15,11 +19,13 @@ public class PlayerMovement : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        movementSpeed = walkingSpeed;
     }
 
     void Update()
     {
         Movement();
+        Running();
     }
    
     void Movement()
@@ -37,5 +43,16 @@ public class PlayerMovement : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
 
         //transform.Translate(xAxis, 0, zAxis);
+    }
+    void Running()
+    {
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            movementSpeed = runningSpeed;
+        }
+        else
+        {
+            movementSpeed = walkingSpeed;
+        }
     }
 }
