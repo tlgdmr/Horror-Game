@@ -4,13 +4,10 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    float xAxis;
-    float zAxis;
-
-    public float VerticalMovement { get { return zAxis; } }
-
-
-    float walkingSpeed = 8;
+   
+    
+    float runningSpeed = 25;
+    float walkingSpeed = 10;
     float movementSpeed;
 
     public CharacterController controller;
@@ -28,13 +25,14 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         Movement();
+        Running();
     }
    
     void Movement()
     {
        
-        xAxis = Input.GetAxis("Horizontal") * Time.deltaTime * movementSpeed;
-        zAxis = Input.GetAxis("Vertical") * Time.deltaTime * movementSpeed;
+        float xAxis = Input.GetAxis("Horizontal") * Time.deltaTime * movementSpeed;
+        float zAxis = Input.GetAxis("Vertical") * Time.deltaTime * movementSpeed;
 
         Vector3 move = transform.right * xAxis + transform.forward * zAxis;
 
@@ -45,5 +43,16 @@ public class PlayerMovement : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
 
         //transform.Translate(xAxis, 0, zAxis);
+    }
+    void Running()
+    {
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            movementSpeed = runningSpeed;
+        }
+        else
+        {
+            movementSpeed = walkingSpeed;
+        }
     }
 }
