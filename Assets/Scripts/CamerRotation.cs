@@ -17,7 +17,7 @@ public class CamerRotation : MonoBehaviour
 
     Transform Player;
     Transform Torch;
-
+  
     private void Start()
     {
        Player = transform.parent;
@@ -65,7 +65,7 @@ public class CamerRotation : MonoBehaviour
         }
 
 
-        if (cameraXRotationValue >= -10 && cameraXRotationValue <= 15)
+        if (cameraXRotationValue >= -10 && cameraXRotationValue <= 10)
         {
             yRotationForTorch -= mouseY;
             yRotationForTorch = Mathf.Clamp(yRotationForTorch, 10, 25);

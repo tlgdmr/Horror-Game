@@ -5,19 +5,24 @@ using UnityEngine;
 public class TorchAnimationController : MonoBehaviour
 {
     Animator TorchAnimation;
-    PlayerMovement playerMovement;
+    public Animator _TorchAnimation { get { return TorchAnimation; } }
+    PlayerMovement PlayerMovement;
     
     void Start()
     {
         TorchAnimation = GetComponent<Animator>();
         TorchAnimation.enabled = false;
-        playerMovement = FindObjectOfType<PlayerMovement>();
+        PlayerMovement = FindObjectOfType<PlayerMovement>();
     }
 
     
     void Update()
     {
-        if (playerMovement.VerticalMovement != 0)
+        WalkingTorchAnimation();
+    }
+    void WalkingTorchAnimation()
+    {
+        if (PlayerMovement.VerticalMovement != 0 || PlayerMovement.HorizontalMovement != 0)
         {
             if (!TorchAnimation.isActiveAndEnabled)
             {

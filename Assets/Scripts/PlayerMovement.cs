@@ -8,42 +8,84 @@ public class PlayerMovement : MonoBehaviour
     float zAxis;
 
     public float VerticalMovement { get { return zAxis; } }
+    public float HorizontalMovement { get { return xAxis; } }
 
 
-    float walkingSpeed = 8;
-    float movementSpeed;
+    [SerializeField] float runningSpeed = 3f;
+    [SerializeField] float walkingForward = 2f;
+    [SerializeField] float walkingBackward = 1f;
+    
 
     public CharacterController controller;
 
     float gravity = -9.81f;
     Vector3 velocity;
+
+    bool isRunning;
+
+    public bool IsRunning { get { return isRunning; } }
     
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        movementSpeed = walkingSpeed;
+        isRunning = false;
     }
 
     void Update()
     {
-        Movement();
+        GetInput();
+        AddingGravity();
     }
    
-    void Movement()
+    void GetInput()
     {
-       
-        xAxis = Input.GetAxis("Horizontal") * Time.deltaTime * movementSpeed;
-        zAxis = Input.GetAxis("Vertical") * Time.deltaTime * movementSpeed;
+        xAxis = Input.GetAxis("Horizontal") * Time.deltaTime;
+        zAxis = Input.GetAxis("Vertical") * Time.deltaTime;
+
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            isRunning = true;
+        }
+        else
+        {
+            isRunning = false;
+        }
+
+        if (zAxis > 0)
+        {
+            if (isRunning)
+            {
+                ApplyMovementSpeed(runningSpeed);
+            }
+            else
+            {
+                ApplyMovementSpeed(walkingForward);
+            }
+        }
+        else if (zAxis < 0)
+        {
+            ApplyMovementSpeed(walkingBackward);
+        }
+        else
+        {
+            ApplyMovementSpeed(walkingBackward);
+        }
+    }
+    void ApplyMovementSpeed(float movementSpeed)
+    {
+        zAxis *= movementSpeed;
+        xAxis *= movementSpeed;
 
         Vector3 move = transform.right * xAxis + transform.forward * zAxis;
 
         controller.Move(move);
-
+    }
+    
+    void AddingGravity()
+    {
         velocity.y += gravity * Time.deltaTime;
 
         controller.Move(velocity * Time.deltaTime);
-
-        //transform.Translate(xAxis, 0, zAxis);
     }
 }

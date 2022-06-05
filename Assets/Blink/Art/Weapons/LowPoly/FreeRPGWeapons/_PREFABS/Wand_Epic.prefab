@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2315277830341522035}
   - component: {fileID: 571885030}
   - component: {fileID: 571885031}
+  - component: {fileID: 335905555}
   m_Layer: 0
   m_Name: Wand_Epic
   m_TagString: Untagged
@@ -115,6 +116,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af6b11dc8e3c27e4ba2e2df84524ea8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &335905555
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4260819330917749670}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.17650038, y: 0.39167634, z: 0.14545925}
+  m_Center: {x: 0.071402244, y: 0.47276592, z: -0.01897566}
 --- !u!1 &4383390471861631222
 GameObject:
   m_ObjectHideFlags: 0
@@ -159,12 +173,12 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 0.97631127, b: 0.37169808, a: 1}
   m_Intensity: 1
-  m_Range: 10
+  m_Range: 15
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
