@@ -14,10 +14,11 @@ public class CamerRotation : MonoBehaviour
 
     float mouseX;
     float mouseY;
+    public float MouseY { get { return mouseY; } }
 
     Transform Player;
     Transform Torch;
-  
+    
     private void Start()
     {
        Player = transform.parent;
@@ -72,4 +73,5 @@ public class CamerRotation : MonoBehaviour
             Torch.localRotation = Quaternion.Euler(yRotationForTorch, Torch.localRotation.eulerAngles.y, Torch.localRotation.eulerAngles.z);
         }
     }
+    
 }

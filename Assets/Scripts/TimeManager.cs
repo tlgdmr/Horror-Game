@@ -30,7 +30,7 @@ public class TimeManager : MonoBehaviour
         while (true)
         {
             TextMeshProTime.text = hour + ":" + minute.ToString("00");
-            yield return new WaitForSeconds(0.0005f);
+            yield return new WaitForSeconds(5f);
             minute += 1;
             if (minute == 60)
             {

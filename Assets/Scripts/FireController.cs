@@ -5,7 +5,12 @@ using UnityEngine;
 [RequireComponent(typeof(ParticleSystem))]
 public class FireController : MonoBehaviour
 {
-    [SerializeField] Transform parent;
+    [SerializeField] Transform cloneCollector;
+
+    CamerRotation mouseY;
+    float mouseYvalue;
+    float MinBulletRotation = -30f;
+    float MaxBulletRotation = 20f;
 
     ParticleSystem MagicBall;
 
@@ -13,10 +18,7 @@ public class FireController : MonoBehaviour
 
     [SerializeField] ParticleSystem ExplosionEffect;
 
-    RaycastHit hit;
-
-    Vector3 hitPosition;
-
+    
     TorchAnimationController TorchAnimation;
 
     private void Start()
@@ -24,6 +26,7 @@ public class FireController : MonoBehaviour
         MagicBall = GetComponent<ParticleSystem>();
         collisionEvents = new List<ParticleCollisionEvent>();
         TorchAnimation = FindObjectOfType<TorchAnimationController>();
+        mouseY = FindObjectOfType<CamerRotation>();
     }
     void Update()
     {
@@ -37,7 +40,7 @@ public class FireController : MonoBehaviour
 
         ParticleSystem explosion = Instantiate(ExplosionEffect, collisionEvents[0].intersection, Quaternion.identity);
         Destroy(explosion.gameObject, 1);
-        explosion.transform.parent = parent;
+        explosion.transform.parent = cloneCollector;
     }
     void FireInputManager()
     {
@@ -61,13 +64,8 @@ public class FireController : MonoBehaviour
     }
     void SetAim()
     {
-        if (Physics.Raycast(transform.position, transform.forward, out hit))
-        {
-            hitPosition = new Vector3(hit.point.x, hit.point.y, hit.point.z);
-        }
-    }
-    void OnDrawGizmos()
-    {
-        Gizmos.DrawSphere(hitPosition, 1);
+        mouseYvalue -= mouseY.MouseY;
+        mouseYvalue = Mathf.Clamp(mouseYvalue, MinBulletRotation, MaxBulletRotation);
+        transform.localRotation = Quaternion.Euler(mouseYvalue, transform.localRotation.eulerAngles.y, transform.localRotation.eulerAngles.z);
     }
 }
