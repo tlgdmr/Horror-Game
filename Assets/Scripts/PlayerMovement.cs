@@ -77,9 +77,10 @@ public class PlayerMovement : MonoBehaviour
         zAxis *= movementSpeed;
         xAxis *= movementSpeed;
 
-        Vector3 move = transform.right * xAxis + transform.forward * zAxis;
-
-        controller.Move(move);
+        Vector3 move = (transform.right * xAxis + transform.forward * zAxis).normalized;
+        
+        controller.Move(move * movementSpeed);
+        Debug.Log((move * movementSpeed).magnitude);
     }
     
     void AddingGravity()
