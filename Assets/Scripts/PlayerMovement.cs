@@ -74,8 +74,8 @@ public class PlayerMovement : MonoBehaviour
     }
     void ApplyMovementSpeed(float movementSpeed)
     {
-        zAxis *= movementSpeed;
-        xAxis *= movementSpeed;
+        zAxis *= movementSpeed * Time.deltaTime;
+        xAxis *= movementSpeed * Time.deltaTime;
 
         Vector3 move = (transform.right * xAxis + transform.forward * zAxis).normalized;
         

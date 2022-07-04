@@ -18,14 +18,10 @@ public class FireController : MonoBehaviour
 
     [SerializeField] ParticleSystem ExplosionEffect;
 
-    
-    TorchAnimationController TorchAnimation;
-
     private void Start()
     {
         MagicBall = GetComponent<ParticleSystem>();
         collisionEvents = new List<ParticleCollisionEvent>();
-        TorchAnimation = FindObjectOfType<TorchAnimationController>();
         mouseY = FindObjectOfType<CamerRotation>();
     }
     void Update()
@@ -46,10 +42,6 @@ public class FireController : MonoBehaviour
     {
         if (Input.GetButton("Fire1"))
         {
-            if (TorchAnimation._TorchAnimation.isActiveAndEnabled)
-            {
-                TorchAnimation._TorchAnimation.enabled = false;
-            }
             StartFiring(true);
         }
         else
@@ -67,5 +59,15 @@ public class FireController : MonoBehaviour
         mouseYvalue -= mouseY.MouseY;
         mouseYvalue = Mathf.Clamp(mouseYvalue, MinBulletRotation, MaxBulletRotation);
         transform.localRotation = Quaternion.Euler(mouseYvalue, transform.localRotation.eulerAngles.y, transform.localRotation.eulerAngles.z);
+    }
+    private void OnDrawGizmos()
+    {
+        RaycastHit hit;
+        Vector3 aimPosition;
+        if (Physics.Raycast(transform.position,transform.forward,out hit))
+        {
+            aimPosition = new Vector3(hit.point.x, hit.point.y, hit.point.z);
+            Gizmos.DrawSphere(aimPosition, 1);
+        }
     }
 }
