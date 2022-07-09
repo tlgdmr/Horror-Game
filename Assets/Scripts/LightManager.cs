@@ -12,21 +12,19 @@ public class LightManager : MonoBehaviour
     float FlameMaximumIntensity = 10;
 
 
-    [SerializeField] Light[] StreetLight;
-
-    float StreetLightTimeForFlame = 0.05f;
-    float StreetLightMinimumIntensity = 0;
-    float StreetLightMaximumIntensity = 6;
-
     [SerializeField] Light DirectionalLight;
 
     TimeManager TimeManager;
+
+    StreetLight _streetLight;
+    CandleLight _candleLight;
 
     private void Start()
     {
         TimeManager = FindObjectOfType<TimeManager>();
         StartCoroutine(TorchFlameIntensity());
-        StartCoroutine(StreetLightIntensity());
+        _streetLight = FindObjectOfType<StreetLight>();
+        _candleLight = FindObjectOfType<CandleLight>();
     }
     private void Update()
     {
@@ -42,18 +40,8 @@ public class LightManager : MonoBehaviour
             yield return new WaitForSeconds(WaitingTimeForFlame);
         }
     }
-    IEnumerator StreetLightIntensity()
-    {
-        while (true)
-        {
-            float randomIntensityForLight = UnityEngine.Random.Range(StreetLightMinimumIntensity, StreetLightMaximumIntensity);
-            foreach (var light in StreetLight)
-            {
-                light.intensity = randomIntensityForLight;
-            }
-            yield return new WaitForSeconds(StreetLightTimeForFlame);
-        }
-    }
+  
+   
     void RotatingLight()
     {
         if (TimeManager != null)
@@ -65,18 +53,14 @@ public class LightManager : MonoBehaviour
     {
         if (TimeManager.Hour >= 18 || TimeManager.Hour <= 6)
         {
-            foreach (var light in StreetLight)
-            {
-                light.enabled = true;
-            }
+            _streetLight.enabled = true;
+            _candleLight.enabled = true;
             FlameIntensity.enabled = true;
         }
         else
         {
-            foreach (var light in StreetLight)
-            {
-                light.enabled = false;
-            }
+            _streetLight.enabled = false;
+            _candleLight.enabled = false;
             FlameIntensity.enabled = false;
         }
     }
