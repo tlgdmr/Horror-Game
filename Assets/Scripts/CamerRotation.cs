@@ -18,9 +18,12 @@ public class CamerRotation : MonoBehaviour
 
     Transform Player;
     Transform Torch;
+
+    PlayerMovement checkDead;
     
     private void Start()
     {
+       checkDead = GetComponentInParent<PlayerMovement>();
        Player = transform.parent;
        Torch = transform.parent.GetChild(1);
        yRotationForTorch = Torch.localRotation.eulerAngles.x;
@@ -28,10 +31,13 @@ public class CamerRotation : MonoBehaviour
 
     private void Update()
     {
-        GetMouseInput();
-        CameraRotation();
-        PlayerBodyRotation();
-        TorchRotation();
+        if (!checkDead.dead)
+        {
+            GetMouseInput();
+            CameraRotation();
+            PlayerBodyRotation();
+            TorchRotation();
+        }
     }
 
     void GetMouseInput()

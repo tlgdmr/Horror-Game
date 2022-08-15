@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2872501955816236575
+--- !u!1 &630950004648385508
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,38 +8,38 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7000815500242040677}
-  - component: {fileID: 5404413837496170721}
-  - component: {fileID: 393796840337559927}
-  - component: {fileID: 1232791154795376544}
+  - component: {fileID: 5637201046010464926}
+  - component: {fileID: 7213901427724879130}
+  - component: {fileID: 3056735522701339788}
+  - component: {fileID: 267158507180522897}
   m_Layer: 0
   m_Name: Particle System
-  m_TagString: Untagged
+  m_TagString: MagicBall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7000815500242040677
+--- !u!4 &5637201046010464926
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2872501955816236575}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 1011.4249, y: 6.436081, z: 465.54694}
+  m_GameObject: {fileID: 630950004648385508}
+  m_LocalRotation: {x: -0, y: -0.008228182, z: -0, w: 0.99996614}
+  m_LocalPosition: {x: -0.85, y: 2.45, z: -0.135}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
---- !u!198 &5404413837496170721
+  m_LocalEulerAnglesHint: {x: 0, y: -0.943, z: 0}
+--- !u!198 &7213901427724879130
 ParticleSystem:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2872501955816236575}
+  m_GameObject: {fileID: 630950004648385508}
   serializedVersion: 7
   lengthInSec: 2
   simulationSpeed: 1
@@ -3793,16 +3793,16 @@ ParticleSystem:
     collidesWithDynamic: 1
     interiorCollisions: 0
   TriggerModule:
-    enabled: 0
+    enabled: 1
     serializedVersion: 2
     inside: 1
     outside: 0
-    enter: 0
+    enter: 2
     exit: 0
     colliderQueryMode: 0
     radiusScale: 1
     primitives:
-    - {fileID: 0}
+    - {fileID: 1542595996480569521, guid: ed6c371b2a569a84c81621a92604f281, type: 3}
   SubModule:
     serializedVersion: 2
     enabled: 0
@@ -4741,14 +4741,14 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
---- !u!199 &393796840337559927
+--- !u!199 &3056735522701339788
 ParticleSystemRenderer:
   serializedVersion: 6
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2872501955816236575}
+  m_GameObject: {fileID: 630950004648385508}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -4808,15 +4808,18 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
---- !u!114 &1232791154795376544
+--- !u!114 &267158507180522897
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2872501955816236575}
+  m_GameObject: {fileID: 630950004648385508}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8488dcfa24aafc24ba9cd8aed5b25caa, type: 3}
+  m_Script: {fileID: 11500000, guid: 7f5df732bdff3cc468ed4dc28d1d73c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cloneCollector: {fileID: 0}
+  ExplosionEffect: {fileID: 2881619111545657197, guid: 2e2e62425d7d489429c3eb28260f3e70, type: 3}
+  AllEnemyGameObject: {fileID: 0}

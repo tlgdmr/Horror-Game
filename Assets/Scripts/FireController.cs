@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,14 +16,22 @@ public class FireController : MonoBehaviour
     ParticleSystem MagicBall;
 
     public List<ParticleCollisionEvent> collisionEvents;
-
+    public List<ParticleSystem.Particle> enter;
+    
     [SerializeField] ParticleSystem ExplosionEffect;
 
-    private void Start()
+    [SerializeField] GameObject AllEnemyGameObject;
+
+    ParticleSystem.EmissionModule emissionModule;
+
+   
+
+    void OnEnable()
     {
         MagicBall = GetComponent<ParticleSystem>();
         collisionEvents = new List<ParticleCollisionEvent>();
         mouseY = FindObjectOfType<CamerRotation>();
+        emissionModule = MagicBall.GetComponent<ParticleSystem>().emission;
     }
     void Update()
     {
@@ -30,14 +39,25 @@ public class FireController : MonoBehaviour
         SetAim();
     }
 
-    private void OnParticleCollision(GameObject other)
+    public void SetTriggerModuleList()
     {
-        MagicBall.GetCollisionEvents(other, collisionEvents);
+        if (MagicBall.trigger.colliderCount > 0)
+        {
+            for (int i = 0; i < MagicBall.trigger.colliderCount; i++)
+            {
+                MagicBall.trigger.RemoveCollider(i);
+            }
+        }
 
-        ParticleSystem explosion = Instantiate(ExplosionEffect, collisionEvents[0].intersection, Quaternion.identity);
-        Destroy(explosion.gameObject, 1);
-        explosion.transform.parent = cloneCollector;
+        if (MagicBall.trigger.colliderCount <= 0)
+        {
+            for (int i = 0; i < AllEnemyGameObject.transform.childCount; i++)
+            {
+                MagicBall.trigger.SetCollider(i, AllEnemyGameObject.transform.GetChild(i));
+            }
+        }
     }
+
     void FireInputManager()
     {
         if (Input.GetButton("Fire1"))
@@ -51,7 +71,6 @@ public class FireController : MonoBehaviour
     }
     void StartFiring(bool fire)
     {
-        var emissionModule = MagicBall.GetComponent<ParticleSystem>().emission;
         emissionModule.enabled = fire;
     }
     void SetAim()
@@ -60,6 +79,22 @@ public class FireController : MonoBehaviour
         mouseYvalue = Mathf.Clamp(mouseYvalue, MinBulletRotation, MaxBulletRotation);
         transform.localRotation = Quaternion.Euler(mouseYvalue, transform.localRotation.eulerAngles.y, transform.localRotation.eulerAngles.z);
     }
+   
+    private void OnParticleCollision(GameObject other)
+    {
+        MagicBall.GetCollisionEvents(other, collisionEvents);
+
+        ParticleSystem explosion = Instantiate(ExplosionEffect, collisionEvents[0].intersection, Quaternion.identity);
+
+        if (collisionEvents[0].colliderComponent.transform.tag == "Enemy")
+        {
+            Destroy(explosion.gameObject);
+        }
+
+        Destroy(explosion.gameObject, 1);
+        explosion.transform.parent = cloneCollector;
+    }
+
     private void OnDrawGizmos()
     {
         RaycastHit hit;

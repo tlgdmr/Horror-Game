@@ -22,19 +22,24 @@ public class PlayerMovement : MonoBehaviour
     Vector3 velocity;
 
     bool isRunning;
+    public bool dead = false;
 
     public bool IsRunning { get { return isRunning; } }
     
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        //Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
         isRunning = false;
     }
 
     void Update()
     {
-        GetInput();
+        if (!dead)
+        {
+            GetInput();
+        }
+
         AddingGravity();
     }
    
@@ -80,7 +85,6 @@ public class PlayerMovement : MonoBehaviour
         Vector3 move = (transform.right * xAxis + transform.forward * zAxis).normalized;
         
         controller.Move(move * movementSpeed);
-        Debug.Log((move * movementSpeed).magnitude);
     }
     
     void AddingGravity()

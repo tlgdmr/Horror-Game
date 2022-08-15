@@ -16,13 +16,12 @@ public class TimeManager : MonoBehaviour
 
     int defaultRotation = 90;
   
-    TextMeshProUGUI TextMeshProTime;
+    [SerializeField] TMP_Text TextMeshProTime;
 
     void Awake()
     {
         hour = DateTime.Now.Hour;
         minute = DateTime.Now.Minute;
-        TextMeshProTime = (TextMeshProUGUI)FindObjectOfType(typeof(TextMeshProUGUI));
         StartCoroutine(SetTime());
     }
     IEnumerator SetTime()
